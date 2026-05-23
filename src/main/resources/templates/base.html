@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="Layout(content)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClickMart</title>
+	<link 
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" 
+		rel="stylesheet" 
+		integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" 
+		crossorigin="anonymous">
+	<link 
+		rel="stylesheet" 
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" 
+		integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" 
+		crossorigin="anonymous" 
+		referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <!--start navbar-->
+	<style>
+	    .custom-navbar{
+	        background-color: #323232;
+	        padding: 20px 0;   /* increase navbar height */
+	    }
+
+	    .custom-navbar .navbar-brand,
+	    .custom-navbar .nav-link{
+	        color: white !important;
+	        font-size: 20px;   /* optional: bigger text */
+	    }
+
+	    .custom-navbar .nav-link:hover{
+	        color: lightgray !important;
+	    }
+	</style>
+	<nav class="navbar navbar-expand-lg custom-navbar">
+	  <div class="container-fluid">
+	    <a class="navbar-brand" href="#"><i class="fa-solid fa-cart-plus"></i> ClickMart Store</a>
+	    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	      <span class="navbar-toggler-icon"></span>
+	    </button>
+	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+	        <li class="nav-item">
+	          <a class="nav-link active" aria-current="page" href="/"><i class="fa-solid fa-house-user"></i> Home</a>
+	        </li>
+			<li class="nav-item">
+	          <a class="nav-link active" aria-current="page" href="/product">Product</a>
+	        </li>
+	        <li class="nav-item dropdown">
+	          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+	            Category
+	          </a>
+	          <ul class="dropdown-menu">
+	            <li><a class="dropdown-item" href="#">Action</a></li>
+	            <li><a class="dropdown-item" href="#">Another action</a></li>
+	            <li><hr class="dropdown-divider"></li>
+	            <li><a class="dropdown-item" href="#">Something else here</a></li>
+	          </ul>
+	        </li> 
+	      </ul>
+		  <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+	  	        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/login"><i class="fa-solid fa-dolly"></i> LOGIN</a></li>
+	  			<li class="nav-item"><a class="nav-link active" aria-current="page" href="/register">REGISTER</a></li>
+				<li class="nav-item"><a class="nav-link active" aria-current="page" href="#">ADMIN</a></li>
+      	 </ul>
+	    </div>
+	  </div>
+	</nav>
+	<!--end navbar-->
+	<div th:replace="${content}"></div>
+	<!--start footer-->
+		<div class="container-fluid text-center text-white d-flex justify-content-center align-items-center"
+		     style="background: #323232; height: 50px;">
+		    <p class="m-0 fw-bold">ClickMart</p>
+		</div>
+		<!--end footer-->
+	<script 
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" 
+		integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" 
+		crossorigin="anonymous">
+	</script>
+</body>
+</html>

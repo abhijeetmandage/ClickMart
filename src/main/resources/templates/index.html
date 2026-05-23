@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::Layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClickMart</title>
+</head>
+<body>
+	<section>
+	    <!-- start carousel -->
+	    <div id="carouselExample" class="carousel slide">
+	        <div class="carousel-inner">
+
+	            <div class="carousel-item">
+	                <img src="img/ecom3.jpg" class="d-block w-100" alt="..." height="350px">
+	            </div>
+				<div class="carousel-item active">
+	                <img src="img/download.jpeg" class="d-block w-100" alt="..." height="350px">
+	            </div>
+	            <div class="carousel-item">
+	                <img src="img/card.png" class="d-block w-100" alt="..." height="350px">
+	            </div>
+				<div class="carousel-item">
+	                <img src="img/images.jpeg" class="d-block w-100" alt="..." height="350px">
+	            </div>
+				<div class="carousel-item">
+	                <img src="img/ss1.jpeg" class="d-block w-100" alt="..." height="350px">
+	            </div>
+
+	        </div>
+
+	        <button class="carousel-control-prev" type="button"
+	            data-bs-target="#carouselExample" data-bs-slide="prev">
+	            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+	            <span class="visually-hidden">Previous</span>
+	        </button>
+
+	        <button class="carousel-control-next" type="button"
+	            data-bs-target="#carouselExample" data-bs-slide="next">
+	            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+	            <span class="visually-hidden">Next</span>
+	        </button>
+	    </div>
+	    <!-- end carousel -->
+		<!--catergory model-->
+		<div class="container">
+			<div class="row">
+				<p class="text-center fs-4">Category</p>
+				<div class="col-md-2">
+					<div class="card rounded-circle shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+						<div class="card-body text-center">
+							<img src="img/category_img/beuty.png" width="65%" height="140px">
+							<p>Beauty</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="card rounded-circle shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+						<div class="card-body text-center">
+							<img src="img/category_img/appli.png" width="65%" height="140px">
+							<p>Electronics</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="card rounded-circle shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+						<div class="card-body text-center">
+							<img src="img/category_img/groccery.jpg" width="65%" height="140px">
+							<p>Groccery</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="card rounded-circle shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+						<div class="card-body text-center">
+							<img src="img/category_img/laptop.jpg" width="65%" height="140px">
+							<p>Laptop</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="card rounded-circle shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+						<div class="card-body text-center">
+							<img src="img/category_img/mobile.png" width="65%" height="140px">
+							<p>Mobile</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="card rounded-circle shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+						<div class="card-body text-center">
+							<img src="img/category_img/pant.png" width="65%" height="140px">
+							<p>Clothes</p>
+						</div>
+					</div>
+				</div>
+			</div>	
+		</div>
+		<!-- end category model -->
+		<!--start latest product-->
+		<div class="container-fluid bg-light p-3">
+				<div class="row">
+					<p class="text-center fs-4">Latest Product</p>
+					<div class="col-md-3">
+						<div class="card">
+							<div class="card-body text-center">
+								<img src="img/product_img/phonejpeg.jpeg" width="65%" height="140px">
+								<p>I Phone 17 pro</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="card">
+							<div class="card-body text-center">
+								<img src="img/product_img/laptop.jpeg" width="65%" height="140px">
+								<p>Laptop</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="card">
+							<div class="card-body text-center">
+								<img src="img/product_img/cot.jpeg" width="65%" height="140px">
+								<p>Shirt</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="card">
+							<div class="card-body text-center">
+								<img src="img/product_img/samsung.jpeg" width="65%" height="140px">
+								<p>Samsung</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="card">
+							<div class="card-body text-center">
+								<img src="img/product_img/shooes.jpeg" width="65%" height="140px">
+								<p>Sprot Shooes</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="card">
+							<div class="card-body text-center">
+								<img src="img/product_img/watch.jpeg" width="65%" height="140px">
+								<p>LG Watch</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="card">
+							<div class="card-body text-center">
+								<img src="img/product_img/bud.jpeg" width="65%" height="140px">
+								<p>Head Phone</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="card">
+							<div class="card-body text-center">
+								<img src="img/product_img/book.jpeg" width="65%" height="140px">
+								<p>Book</p>
+							</div>
+						</div>
+					</div>
+				</div>	
+			</div>
+		<!--end latest product-->
+	</section>
+</body>
+</html>
