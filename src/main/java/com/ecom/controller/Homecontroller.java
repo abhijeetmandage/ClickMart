@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.security.Principal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -18,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ecom.model.Category;
 import com.ecom.model.Product;
-import com.ecom.model.UserDetails;
+import com.ecom.model.UserDetail;
 import com.ecom.service.CategoryService;
 import com.ecom.service.ProductService;
 import com.ecom.service.UserService;
@@ -40,6 +41,17 @@ public class Homecontroller
 	@Autowired
 	private UserService userService;
 	
+	@ModelAttribute
+	public void getUserDetails(Principal p,Model m) {
+		if(p!=null) {
+			String email=p.getName();
+			UserDetail userDetail=userService.getUserByEmail(email);
+			m.addAttribute("user", userDetail);
+		}
+		List<Category> allActivecategory=categoryService.getAllActiveCategory();
+		m.addAttribute("category", allActivecategory);
+	}
+	
 	@GetMapping("/")
 	public String index() 
 	{
@@ -52,7 +64,7 @@ public class Homecontroller
 		return "base";
 	}
 	
-	@GetMapping("/login")
+	@GetMapping("/signin")
 	public String login() 
 	{
 		return "login";
@@ -84,18 +96,17 @@ public class Homecontroller
 	}
 	
 	@PostMapping("/saveUser")
-	public String saveUser(@ModelAttribute UserDetails user,@RequestParam("img") MultipartFile file,HttpSession session ) throws IOException 
+	public String saveUser(@ModelAttribute UserDetail user,@RequestParam("img") MultipartFile file,HttpSession session ) throws IOException 
 	{
 		String imgName=file.isEmpty()?"default.png":file.getOriginalFilename();
 		user.setProfileImage(imgName);
-		UserDetails saveUser=userService.saveUser(user);
+		UserDetail saveUser=userService.saveUser(user);
 		if(!ObjectUtils.isEmpty(saveUser)) 
 		{
 			if(!file.isEmpty()) 
 			{
 				File saveFile=new ClassPathResource("static/img").getFile();//get path of img folder
 				Path path=Paths.get(saveFile.getAbsolutePath()+File.separator+"Profile_img"+File.separator+file.getOriginalFilename());//get full path
-				System.out.println(path);
 				Files.copy(file.getInputStream(), path,StandardCopyOption.REPLACE_EXISTING);//save img
 			}
 			session.setAttribute("succMsg", "Data save successfully");

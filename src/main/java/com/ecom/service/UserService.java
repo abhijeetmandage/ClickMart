@@ -1,7 +1,16 @@
 package com.ecom.service;
 
-import com.ecom.model.UserDetails;
+import java.util.List;
 
-public interface UserService {
-	public UserDetails saveUser(UserDetails user);
+import com.ecom.model.UserDetail;
+
+public interface UserService 
+{
+	public UserDetail saveUser(UserDetail user);
+	
+	public UserDetail getUserByEmail(String email);
+	
+	public List<UserDetail> getUsers(String role);
+	
+	public Boolean upadateAcountStatus(int id,Boolean status);
 }

@@ -14,7 +14,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class UserDetails 
+public class UserDetail 
 {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -37,4 +37,8 @@ public class UserDetails
 	private String password;
 	
 	private String profileImage;
+	
+	private String role;
+	
+	private Boolean isEnable;
 }

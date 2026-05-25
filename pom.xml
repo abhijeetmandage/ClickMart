@@ -48,9 +48,6 @@
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<!-- Source: https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools -->
-		<!-- Source: https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-		<!-- Source: https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
 		    <groupId>org.projectlombok</groupId>
 		    <artifactId>lombok</artifactId>
@@ -68,6 +65,10 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+	      <groupId>org.springframework.boot</groupId>
+	      <artifactId>spring-boot-starter-security</artifactId>
+	    </dependency>
 	</dependencies>
 
 	<build>
