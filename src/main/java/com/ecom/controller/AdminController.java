@@ -54,7 +54,7 @@ public class AdminController
 			m.addAttribute("user", userDetail);
 		}
 		List<Category> allActivecategory=categoryService.getAllActiveCategory();
-		m.addAttribute("category", allActivecategory);
+		m.addAttribute("activeCategories", allActivecategory);
 	}
 	
 	@GetMapping("/")
@@ -74,7 +74,7 @@ public class AdminController
 	@GetMapping("/category")
 	public String category(Model m)
 	{
-		m.addAttribute("category",categoryService.getAllCategory());
+		m.addAttribute("categories",categoryService.getAllCategory());
 		return "admin/category";
 	}
 	

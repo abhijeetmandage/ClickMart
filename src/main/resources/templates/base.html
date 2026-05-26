@@ -54,7 +54,7 @@
 	            Category
 	          </a>
 	          <ul class="dropdown-menu">
-	            <li th:each="c:${category}"><a class="dropdown-item" th:href="@{'/product?category='+${c.name}}">[[${c.name}]]</a></li>
+	            <li th:each="c:${activeCategories}"><a class="dropdown-item" th:href="@{'/product?category='+${c.name}}">[[${c.name}]]</a></li>
 	            
 	          </ul>
 	        </li> 

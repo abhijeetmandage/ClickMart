@@ -40,7 +40,7 @@ public class UserController
 			m.addAttribute("user", userDetail);
 		}
 		List<Category> allActivecategory=categoryService.getAllActiveCategory();
-		m.addAttribute("category", allActivecategory);
+		m.addAttribute("activeCategories", allActivecategory);
 	}
 	
 	
