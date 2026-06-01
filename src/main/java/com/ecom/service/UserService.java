@@ -2,6 +2,8 @@ package com.ecom.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.ecom.model.UserDetail;
 
 public interface UserService 
@@ -27,5 +29,9 @@ public interface UserService
 	public UserDetail getUserByToken(String token);
 	
 	public UserDetail updateUser(UserDetail user);
+	
+	public UserDetail updateUserProfile(UserDetail user,MultipartFile img);
+	
+	public UserDetail saveAdmin(UserDetail user);
 	
 }

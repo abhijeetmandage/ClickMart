@@ -7,7 +7,7 @@
 </head>
 <body>
     <section>
-		<div class="container p-5">
+		<div class="container p-5 mt-5 ">
 			<p class="text-center fs-3 fw-bold">Admin Dashbord</p>
 			<div class="row p-5">
 				<div class="col-md-4 mt-2">
@@ -41,7 +41,7 @@
 					</a>
 				</div>
 				<div class="col-md-4 mt-4">
-					<a href="#" class="text-decoration-none">
+					<a href="/admin/orders" class="text-decoration-none">
 						<div class="card card-sh">
 							<div class="card-body text-center text-warning">
 								<i class="fa-solid fa-bookmark fa-3x"></i>
@@ -51,7 +51,7 @@
 					</a>
 				</div>
 				<div class="col-md-4 mt-4">
-					<a href="/admin/users" class="text-decoration-none">
+					<a href="/admin/users?type=1" class="text-decoration-none">
 						<div class="card card-sh">
 							<div class="card-body text-center "style="color:#10B981;">
 								<i class="fa-solid fa-user-gear fa-3x"></i>
@@ -61,11 +61,21 @@
 					</a>
 				</div>
 				<div class="col-md-4 mt-4">
-					<a href="#" class="text-decoration-none">
+					<a href="/admin/add-admin" class="text-decoration-none">
 						<div class="card card-sh">
 							<div class="card-body text-center" style="color:#06B6D4;">
 								<i class="fa-solid fa-circle-user fa-3x"></i>
 								<h4>Add Admin</h4>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="col-md-4 mt-4">
+					<a href="/admin/users?type=2" class="text-decoration-none">
+						<div class="card card-sh">
+							<div class="card-body text-center "style="color:#3B82F6;">
+								<i class="fa-solid fa-users-gear fa-3x " style="color:#3B82F6;"></i>
+								<h4>Admins</h4>
 							</div>
 						</div>
 					</a>

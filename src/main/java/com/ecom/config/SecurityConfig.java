@@ -12,7 +12,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
-public class SecurityConfig {
+public class SecurityConfig
+{
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
@@ -25,24 +26,23 @@ public class SecurityConfig {
     private AuthFailureHandlerImpl authFailureHandlerImpl;
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder()
+    {
     		return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-
-        DaoAuthenticationProvider auth =
-                new DaoAuthenticationProvider();
-
+    public DaoAuthenticationProvider authenticationProvider() 
+    {
+        DaoAuthenticationProvider auth =new DaoAuthenticationProvider();
         auth.setUserDetailsService(userDetailsService);
         auth.setPasswordEncoder(passwordEncoder());
-
         return auth;
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception 
+    {
 	    	http.csrf(csrf->csrf.disable()).cors(cors->cors.disable())
 			.authorizeHttpRequests(req->req.requestMatchers("/user/**").hasRole("USER")
 			.requestMatchers("/admin/**").hasRole("ADMIN")		

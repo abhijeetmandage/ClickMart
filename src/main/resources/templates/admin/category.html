@@ -7,6 +7,9 @@
 </head>
 <body>
     <section>
+		<div class="mb-3">
+			<a href="/admin/" class="text-decoration-none fs-4"><i class="fa-regular fa-circle-left"></i> Back</a>
+		</div>
 		<div class="container-fluid p-5 mt-5">
 			<div class="row">
 				<div class="col-md-3">
@@ -25,8 +28,7 @@
 							    </p>
 								<th:block th:text="${@commonServiceimpl.removeSessionMessage()}"></th:block>
 							</th:block>
-						</div>
-						
+						</div>						
 						<div class="card-body">
 							<form action="/admin/saveCategory" method="post" enctype="multipart/form-data">
 								<div class="mb-3">
@@ -57,7 +59,7 @@
 						</div>
 					</div>
 				</div>
-				<div class=col-md-8>
+				<div class="col-md-8">
 					<div class="card card-sh">
 						<div class="card-header text-center fs-4">Category Details</div>
 						<div class="card-body">
@@ -77,8 +79,7 @@
 							      <td>[[${cat.name}]]</td>
 								  <td>[[${cat.isActive}]]</td>
 							      <td><img th:src="@{'/img/category_img/'+${cat.imageName}}"
-									width="50px" height="50px"></td>
-									
+									width="50px" height="50px"></td>									
 									<td>
 									    <a th:href="@{'/admin/loadEditCategory/'+${cat.id}}" class="btn btn-primary" style="text-transform: none;">
 									        <i class="fa-regular fa-pen-to-square fa-1x"></i> Edit
@@ -88,16 +89,50 @@
 									        <i class="fa-regular fa-trash-can fa-1x"></i> Delete
 									    </a>
 									</td>
-							    </tr>
-							    
+							    </tr>							    
 							  </tbody>
 							</table>
+							<div class="row mt-3">
+							    <div class="col-md-4 fw-bold">
+							        Total Categories : [[${totalElements}]]
+							    </div>
+							    <div class="col-md-8">
+							        <nav>
+							            <ul class="pagination justify-content-center">
+							                <!-- Previous -->
+							                <li class="page-item"
+							                    th:if="${isFirst != null and !isFirst}">
+							                    <a class="page-link"
+							                       th:href="@{'/admin/category?pageNo=' + ${pageNo-1} + '&pageSize=' + ${pageSize}}">
+							                        &laquo;
+							                    </a>
+							                </li>
+							                <!-- Page Numbers -->
+							                <li class="page-item"
+							                    th:each="i : ${#numbers.sequence(1,totalPages)}"
+							                    th:classappend="${pageNo == i-1} ? 'active' : ''">
+							                    <a class="page-link"
+							                       th:href="@{'/admin/category?pageNo=' + ${i-1} + '&pageSize=' + ${pageSize}}">
+							                        [[${i}]]
+							                    </a>
+							                </li>
+							                <!-- Next -->
+							                <li class="page-item"
+							                    th:if="${isLast != null and !isLast}">
+							                    <a class="page-link"
+							                       th:href="@{'/admin/category?pageNo=' + ${pageNo+1} + '&pageSize=' + ${pageSize}}">
+							                        &raquo;
+							                    </a>
+							                </li>
+							            </ul>
+							        </nav>
+							    </div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	
+		</div>	
 	</section>
 </body>
 </html>

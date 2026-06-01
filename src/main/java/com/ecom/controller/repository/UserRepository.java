@@ -6,7 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.ecom.model.UserDetail;
 
-public interface UserRepository extends JpaRepository<UserDetail, Integer> {
+public interface UserRepository extends JpaRepository<UserDetail, Integer>
+{
 
     public UserDetail findByEmail(String email);
 

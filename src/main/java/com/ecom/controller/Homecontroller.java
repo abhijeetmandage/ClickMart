@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ecom.model.Category;
 import com.ecom.model.Product;
 import com.ecom.model.UserDetail;
+import com.ecom.service.CartService;
 import com.ecom.service.CategoryService;
 import com.ecom.service.ProductService;
 import com.ecom.service.UserService;
@@ -35,6 +36,9 @@ import jakarta.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 @Controller
 public class Homecontroller 
@@ -54,20 +58,33 @@ public class Homecontroller
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
+	@Autowired
+	private CartService cartService;
+	
 	@ModelAttribute
-	public void getUserDetails(Principal p,Model m) {
-		if(p!=null) {
+	public void getUserDetails(Principal p,Model m) 
+	{
+		if(p!=null) 
+		{
 			String email=p.getName();
 			UserDetail userDetail=userService.getUserByEmail(email);
 			m.addAttribute("user", userDetail);
+			Integer countCart=cartService.getCountCart(userDetail.getId());
+			m.addAttribute("countCart", countCart);
 		}
 		List<Category> allActivecategory=categoryService.getAllActiveCategory();
 		m.addAttribute("activeCategories", allActivecategory);
 	}
 	
 	@GetMapping("/")
-	public String index() 
+	public String index(Model m) 
 	{
+		List<Category> allActiveCategory=categoryService.getAllActiveCategory().stream()
+				.sorted((c1,c2)->c2.getId().compareTo(c1.getId())).limit(6).toList();
+		List<Product> allActiveProduct=productService.getAllActiveProduvts("").stream()
+				.sorted((p1,p2)->p2.getId().compareTo(p1.getId())).limit(8).toList();
+		m.addAttribute("homecategory", allActiveCategory);
+		m.addAttribute("homeproducts", allActiveProduct);
 		return "index";
 	}
 	
@@ -90,13 +107,25 @@ public class Homecontroller
 	}
 	
 	@GetMapping("/product")
-	public String product(Model m,@RequestParam(value="category", defaultValue="") String category) 
+	public String product(Model m,@RequestParam(value="category", defaultValue="") String category,
+			@RequestParam(name="pageNo",defaultValue="0") Integer pageNo,
+			@RequestParam(name="pageSize",defaultValue="8") Integer pageSize) 
 	{
 		List<Category>categoreis=categoryService.getAllActiveCategory();
-		List<Product>products=productService.getAllActiveProduvts(category);
-		m.addAttribute("categoreis", categoreis);
-		m.addAttribute("products", products);
 		m.addAttribute("paramValue", category);
+		m.addAttribute("categoreis", categoreis);
+		
+		Page<Product>page=productService.getAllActiveProductPagination(pageNo, pageSize,category);
+		List<Product> products=page.getContent();
+		m.addAttribute("products",products);
+		m.addAttribute("productsSize", products.size());
+		m.addAttribute("pageNo", page.getNumber());
+		m.addAttribute("pageSize",pageSize);
+		m.addAttribute("totalElements", page.getTotalElements());
+		m.addAttribute("totalPages", page.getTotalPages());
+		m.addAttribute("isFirst", page.isFirst());
+		m.addAttribute("isLast", page.isLast());
+		
 		return "product";
 	}
 	
@@ -118,9 +147,7 @@ public class Homecontroller
 		{
 			if(!file.isEmpty()) 
 			{
-				File saveFile=new ClassPathResource("static/img").getFile();//get path of img folder
-				Path path=Paths.get(saveFile.getAbsolutePath()+File.separator+"Profile_img"+File.separator+file.getOriginalFilename());//get full path
-				Files.copy(file.getInputStream(), path,StandardCopyOption.REPLACE_EXISTING);//save img
+				saveImageToUploadDir(file, "Profile_img");
 			}
 			session.setAttribute("succMsg", "Data save successfully");
 		}else
@@ -132,7 +159,8 @@ public class Homecontroller
 
 	//forgot password
 	@GetMapping("/forgot-Password")
-	public String forgotPassword() {
+	public String forgotPassword() 
+	{
 		return "forgot_password";
 	}
 	
@@ -165,9 +193,11 @@ public class Homecontroller
 	}
 	
 	@GetMapping("/reset-Password")
-	public String showResetPassword(@RequestParam String token,HttpSession session,Model m) {
+	public String showResetPassword(@RequestParam String token,HttpSession session,Model m)
+	{
 		UserDetail userByTiken=userService.getUserByToken(token);
-		if(userByTiken==null) {
+		if(userByTiken==null)
+		{
 			System.out.println("token is="+userByTiken);
 			m.addAttribute("errorMsg", "Your link is invalid or expired");
 			return "message";
@@ -182,7 +212,6 @@ public class Homecontroller
 		System.out.println("Received token = " + token);
 		if(userByToken==null) 
 		{
-			System.out.println("token is="+userByToken);
 			m.addAttribute("errorMsg", "Your link is invalid or expired");
 			return "message";
 		}
@@ -197,4 +226,44 @@ public class Homecontroller
 		
 	}
 	
+	//fixing the images not apear bug
+		private void saveImageToUploadDir(MultipartFile file, String subFolder) throws IOException 
+		{
+		    String uploadDir = System.getProperty("user.home") 
+		                     + File.separator + "ecom_uploads" 
+		                     + File.separator + subFolder;
+		    Path uploadPath = Paths.get(uploadDir);
+		    if (!Files.exists(uploadPath)) {
+		        Files.createDirectories(uploadPath); // creates folder automatically
+		    }
+		    Files.copy(file.getInputStream(), 
+		               uploadPath.resolve(file.getOriginalFilename()), 
+		               StandardCopyOption.REPLACE_EXISTING);
+		}
+		//end 
+		
+		@GetMapping("/search")
+		public String searchProduct(@RequestParam String ch, Model m) 
+		{
+		    List<Product> searchProducts = productService.searchProduct(ch);
+
+		    m.addAttribute("products", searchProducts);
+		    m.addAttribute("productsSize", searchProducts.size());
+
+		    List<Category> categoreis = categoryService.getAllActiveCategory();
+		    m.addAttribute("categoreis", categoreis);
+
+		    m.addAttribute("totalElements", searchProducts.size());
+		    m.addAttribute("totalPages", 1);
+		    m.addAttribute("pageNo", 0);
+		    m.addAttribute("pageSize", 8);
+		    m.addAttribute("isFirst", true);
+		    m.addAttribute("isLast", true);
+
+		    if (!searchProducts.isEmpty())		   
+		        m.addAttribute("paramValue",searchProducts.get(0).getCategory());		   
+		    else 	    
+		        m.addAttribute("paramValue", "");		    
+		    return "product";
+		}
 }

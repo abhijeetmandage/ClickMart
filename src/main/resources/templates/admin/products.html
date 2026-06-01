@@ -7,25 +7,44 @@
 </head>
 <body>
     <section>
-		<div class="container-fluid mt-5 p-2">
-			<div class="card card-sh">
-				<div class="card-header text-center">
-					<p class="fs-4">View Products</p>
-					<th:block th:if="${session.succMsg}">
-					    <p class="text-success fw-bold">
-					        [[${session.succMsg}]]
-					    </p>
-						<th:block th:text="${@commonServiceimpl.removeSessionMessage()}"></th:block>
-					</th:block>
-					<th:block th:if="${session.errorMsg}">
-					    <p class="text-danger fw-bold">
-					        [[${session.errorMsg}]]
-					    </p>
-						<th:block th:text="${@commonServiceimpl.removeSessionMessage()}"></th:block>
-					</th:block>
+		<div class="container-fluid pt-2 px-5 pb-5">
+			<a href="/admin/" class="text-decoration-none fs-4"><i class="fa-regular fa-circle-left"></i> Back</a>
+			<div class="row">
+				<p class="text-center fs-3">All Products</p>
+				<hr>
+				<th:block th:if="${session.succMsg}">
+				    <p class="text-success fw-bold">
+				        [[${session.succMsg}]]
+				    </p>
+					<th:block th:text="${@commonServiceimpl.removeSessionMessage()}"></th:block>
+				</th:block>
+				<th:block th:if="${session.errorMsg}">
+				    <p class="text-danger fw-bold">
+				        [[${session.errorMsg}]]
+				    </p>
+					<th:block th:text="${@commonServiceimpl.removeSessionMessage()}"></th:block>
+				</th:block>
+				<th:block th:if="${session.errorMsg}">
+				    <p class="text-danger fw-bold text-center">
+				        [[${session.errorMsg}]]
+				    </p>
+					<th:block th:text="${@commonServiceimpl.removeSessionMessage()}"></th:block>
+				</th:block>
+				<div class="col-md-4 mb-4">
+					<form action="/admin/products" method="get">
+						<div class="row">
+							<div class="col">
+								<input type="text" class="form-control" name="ch" placeholder="Search Product">
+							</div>
+							<div class="col">
+								<button class="btn btn-primary col">Search</button>
+							</div>
+						</div>
+					</form>
 				</div>
+			<div class="card card-sh">				
 				<div class="card-body">
-					<table class="table">
+					<table class="table table-bordered">
 					  <thead>
 					    <tr>
 					      <th scope="col">Sl No</th>
@@ -63,8 +82,47 @@
 					    
 					  </tbody>
 					</table>
+					<!-- Pagination Start -->
+					<div class="row mt-3">
+						<div class="col-md-4 fw-bold">
+							Total Products : [[${totalElements}]]
+						</div>
+						<div class="col-md-4">
+							<nav>
+								<ul class="pagination justify-content-center">
+									<!-- Previous -->
+									<li class="page-item"
+										th:if="${isFirst != null and !isFirst}">
+										<a class="page-link"
+											th:href="@{'/admin/products?pageNo=' + ${pageNo-1} + '&pageSize=' + ${pageSize} + '&ch=' + ${ch}}">
+											&laquo;
+										</a>
+									</li>
+									<!-- Page Number -->
+									<li class="page-item"
+										th:each="i : ${#numbers.sequence(1,totalPages)}"
+										th:classappend="${pageNo == i-1} ? 'active' : ''">
+										<a class="page-link"
+											th:href="@{'/admin/products?pageNo=' + ${i-1} + '&pageSize=' + ${pageSize} + '&ch=' + ${ch}}">
+											[[${i}]]
+										</a>
+									</li>
+									<!-- Next -->
+									<li class="page-item"
+										th:if="${isLast != null and !isLast}">
+										<a class="page-link"
+											th:href="@{'/admin/products?pageNo=' + ${pageNo+1} + '&pageSize=' + ${pageSize} + '&ch=' + ${ch}}">
+											&raquo;
+										</a>
+									</li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+					<!-- Pagination End -->
 				</div>
 			</div>
+		</div>
 		</div>
 	</section>
 </body>

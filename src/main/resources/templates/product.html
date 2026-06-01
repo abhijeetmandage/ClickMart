@@ -10,9 +10,9 @@
 		<div class="container-fluid  p-4  "style="background-color:#4E4E4F;">
 			<div class="row">
 				<div class="col-md-8 offset-md-2">
-					<form>
+					<form action="search" method="get">
 						<div class="input-group">
-							<input type="text" class="form-control" name="ch">
+							<input type="text" class="form-control" name="ch" placeholder="Search ClickMart.in"  required>
 							<button class="btn btn-light text-dark ms-3 col-md-2"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
 						</div>
 					</form>
@@ -46,7 +46,7 @@
 						<div class="card-body ">
 							<p class="fs-3 text-center">Products</p> 
 							<div class="row">
-								<th:block th:if="${products.size>0}">
+								<th:block th:if="${productsSize>0}">
 									<div class="col-md-3" th:each="p:${products}">
 										<div class="card">
 											<div class="card-body text-center ">
@@ -66,12 +66,57 @@
 										</div>							
 									</div>
 								</th:block>
-								<th:block th:unless="${products.size>0}">
+								<th:block th:unless="${productsSize>0}">
 									<P class="fs-4 text-center mt-4 text-danger">Product not availabel yet</P>
 								</th:block>
 							</div>
 						</div>
 					</div>
+					<!--Start pagination-->
+					<div class="row">
+					    <div class="col-md-4 fw-bold">
+					        Total Products : [[${totalElements}]]
+					    </div>
+
+					    <div class="col-md-4">
+					        <nav aria-label="Page navigation example">
+					            <ul class="pagination justify-content-center">
+
+					                <!-- Previous Button -->
+					                <li class="page-item" th:if="${isFirst != null and !isFirst}">
+					                    <a class="page-link"
+					                       th:href="@{'/product?pageNo=' + ${pageNo-1} + '&pageSize=' + ${pageSize}}"
+					                       aria-label="Previous">
+					                        <span aria-hidden="true">&laquo;</span>
+					                    </a>
+					                </li>
+
+					                <!-- Page Numbers -->
+					                <li th:if="${totalPages != null}"
+									    th:each="i : ${#numbers.sequence(1,totalPages)}"
+									    class="page-item"
+									    th:classappend="${pageNo == i-1} ? 'active' : ''">
+
+					                    <a class="page-link"
+					                       th:href="@{'/product?pageNo=' + ${i-1} + '&pageSize=' + ${pageSize}}">
+					                        [[${i}]]
+					                    </a>
+					                </li>
+
+					                <!-- Next Button -->
+					                <li class="page-item" th:if="${isLast != null and !isLast}">
+					                    <a class="page-link"
+					                       th:href="@{'/product?pageNo=' + ${pageNo+1} + '&pageSize=' + ${pageSize}}"
+					                       aria-label="Next">
+					                        <span aria-hidden="true">&raquo;</span>
+					                    </a>
+					                </li>
+
+					            </ul>
+					        </nav>
+					    </div>
+					</div>
+					<!-- End Pagination -->
 				</div>
 			</div>
 		</div>

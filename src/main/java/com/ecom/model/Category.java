@@ -14,12 +14,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity //make this class as a table of data base
+@Entity 
 
-public class Category {
+public class Category 
+{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	
 	private String name;
 	

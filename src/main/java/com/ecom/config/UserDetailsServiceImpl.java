@@ -11,29 +11,20 @@ import com.ecom.controller.repository.UserRepository;
 import com.ecom.model.UserDetail;
 
 @Service
-public class UserDetailsServiceImpl
-        implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService 
+{
 
     @Autowired
     private UserRepository userRepository;
 
-    
-    
     @Override
-    public UserDetails loadUserByUsername(String username)
-            throws UsernameNotFoundException {
-    	
-    	 	System.out.println("LOGIN EMAIL = "+ username);
-        UserDetail user =userRepository.findByEmail(username);
-        System.out.println("USER = " + user);
-        
-        if (user == null) {
-            throw new UsernameNotFoundException(
-                    "User not found");
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException 
+    {    	 	
+        UserDetail user =userRepository.findByEmail(username);                
+        if (user == null)
+        {
+            throw new UsernameNotFoundException("User not found");
         }
-        System.out.println("DB PASSWORD = " +
-                user.getPassword());
-       
         return new CustomUser(user);
     }
 }

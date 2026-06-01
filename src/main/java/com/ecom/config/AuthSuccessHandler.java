@@ -15,11 +15,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Service
-public class AuthSuccessHandler implements AuthenticationSuccessHandler {
+public class AuthSuccessHandler implements AuthenticationSuccessHandler
+{
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-			Authentication authentication) throws IOException, ServletException {
+			Authentication authentication) throws IOException, ServletException
+	{
 			Collection<? extends GrantedAuthority> authorities=authentication.getAuthorities();
 			Set<String> roles=AuthorityUtils.authorityListToSet(authorities);
 			if(roles.contains("ROLE_ADMIN")) 

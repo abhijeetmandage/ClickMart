@@ -9,9 +9,23 @@
 	<section>
 		<div class="container card-sh" style="margin-top:70px;margin-bottom:210px;">
 			<div class="col-md-12 p-5">
-				<div class="row">	
+				<div class="row">
+					<th:block th:if="${session.succMsg}">
+					  <p class="text-success fw-bold alert alert-secondary text-center">
+					        [[${session.succMsg}]]
+					    </p>
+						<th:block th:text="${@commonServiceimpl.removeSessionMessage()}"></th:block>
+						
+					</th:block>
+					<th:block th:if="${session.errorMsg}">
+					  <p class="text-danger fw-bold alert alert-danger text-center">
+					        [[${session.errorMsg}]]
+					    </p>
+						<th:block th:text="${@commonServiceimpl.removeSessionMessage()}"></th:block>
+					</th:block>	
 					<div class="col-md-6 text-end">
-						<img alt="" src="/img/product_img/bud.jpeg" width="330px" height="400px">
+						<!-- Fixed -->
+						<img alt="" th:src="@{'/img/product_img/' + ${product.image}}" width="330px" height="400px">
 					</div>
 					<div class="col-md-6 ps-3">
 						<p class="fs-3">[[${product.title}]]</p>
@@ -58,9 +72,16 @@
 						    </div>
 						</div>
 						<th:block th:if="${product.stock>0}">
-							<a href="login.jsp" class="btn btn-primary col-md-12 ">
-								Add To Cart
-							</a>
+							<th:block th:if="${user==null}">
+								<a href="/signin" class="btn btn-primary col-md-12 ">
+									Add To Cart
+								</a>
+							</th:block>
+							<th:block th:unless="${user==null}">
+								<a th:href="@{'/user/addCart?pid='+${product.id}+'&uid='+${user.id}}" class="btn btn-primary col-md-12 ">
+									Add To Cart
+								</a>
+							</th:block>
 						</th:block>
 						<th:block th:unless="${product.stock>0}">
 							<a href="#" class="btn btn-warning col-md-12 ">

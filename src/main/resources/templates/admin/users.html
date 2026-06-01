@@ -7,10 +7,11 @@
 </head>
 <body>
     <section>
-		<div class="container-fluid mt-5 p-2">
+		<div class="container-fluid mt-5 p-2"style="margin-bottom: 190px;">
 			<div class="card card-sh">
 				<div class="card-header text-center">
-					<p class="fs-4">Users Details</p>
+					<p class="fs-4" th:if="${userType==1}">Users Details</p>
+					<p class="fs-4" th:if="${userType==2}">Admin</p>
 					<th:block th:if="${session.succMsg}">
 					    <p class="text-success fw-bold">
 					        [[${session.succMsg}]]
@@ -49,10 +50,10 @@
 						  <td>[[${u.isEnable}]]</td>
 						  
 	  				      <td>
-							<a th:href="@{'/admin/updateStatus?status=true&id='+${u.id}}" class="btn btn-primary btn-sm">
+							<a th:href="@{'/admin/updateStatus?status=true&id='+${u.id}}+'&type='+${userType}" class="btn btn-primary btn-sm">
 								Active
 							</a>
-							<a th:href="@{'/admin/updateStatus?status=false&id='+${u.id}}" class="btn btn-danger btn-sm">
+							<a th:href="@{'/admin/updateStatus?status=false&id='+${u.id}}+'&type='+${userType}" class="btn btn-danger btn-sm">
 								Inactive
 							</a>
 						  </td>
