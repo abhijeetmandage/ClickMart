@@ -130,14 +130,26 @@ public class UserController
 		}
 		return "/user/order";
 	}
-	
-	@PostMapping("/save-Order")
-	public String saveOrder(@ModelAttribute OrderRequest request,Principal p) 
-	{
 		
-		UserDetail getLoggedUser=getLoggedInUserDetails(p);
-		orderService.saveOrder(getLoggedUser.getId(), request);
-		return "redirect:/user/success";
+	@PostMapping("/save-Order")
+	public String saveOrder(@ModelAttribute OrderRequest request,
+	                        Principal p,
+	                        HttpSession session)
+	{
+	    UserDetail loggedUser = getLoggedInUserDetails(p);
+
+	    List<Cart> carts = cartService.getCartsByUser(loggedUser.getId());
+
+	    if(carts == null || carts.isEmpty())
+	    {
+	        session.setAttribute("errorMsg",
+	                "Your cart is empty. Add products before placing an order.");
+	        return "redirect:/user/cart";
+	    }
+
+	    orderService.saveOrder(loggedUser.getId(), request);
+
+	    return "redirect:/user/success";
 	}
 	
 	@GetMapping("/success")
@@ -190,12 +202,10 @@ public class UserController
 		UserDetail updatedProfile=userService.updateUserProfile(user, img);
 		
 		if(ObjectUtils.isEmpty(updatedProfile))
-		{
 			session.setAttribute("errorMsg", "Profile not updated");
-		}else 
-		{
+		else 
 			session.setAttribute("succMsg", "Profile Updated Successfully");
-		}
+		
 		return  "redirect:/user/profile";
 	}
 	

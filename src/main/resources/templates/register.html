@@ -30,10 +30,10 @@
 							</th:block>
 		                </div>
 		                <div class="card-body">
-		                    <form action="/saveUser" enctype="multipart/form-data" method="post">
+		                    <form action="/saveUser" enctype="multipart/form-data" method="post" id="userRegister" novalidate>
 								<div class="row">
 			                        <div class="col">
-			                            <label class="form-label">Full Nmae</label>
+			                            <label class="form-label">Full Name</label>
 										<input required class="form-control" name="name" type="text">
 			                        </div>
 									<div class="col">
@@ -71,7 +71,8 @@
 										<div class="input-group">
 									        <input required type="password"
 									               class="form-control"
-									               name="password">
+									               name="password"
+												   id="pass">
 
 									        <span class="input-group-text">
 									            <i class="fa-solid fa-lock"></i>
@@ -103,7 +104,7 @@
 		                </div>
 						<div class="card-footer text-center">
 							 have an account?
-							<a href="/login"class="text-decoration-none">
+							<a href="/signin"class="text-decoration-none">
 								Login
 							</a>
 						</div>

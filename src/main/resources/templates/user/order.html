@@ -8,59 +8,59 @@
 <body>
     <section>
 		<div class="container mt-5 p-5">
-			<form action="/user/save-Order" method="post">
+			<form action="/user/save-Order" method="post" id="orders">
 		    <div class="row">
 		        <div class="col-md-6 ">		           
-						<div class="mb-5 row">
-							<P class="text-center fs-4 ">Billing Address</P>
-							<hr>
-							<div class="col p-1">
-								<label>First Name</label>
-								<input type="text" name="firstName" 
-								 class="form-control col">
-							</div>
-							<div class="col p-1">
-								<label>Last Name</label>
-								<input type="text" name="lastName"
-								 class="form-control col ms-2">
-							 </div>
+					<div class="mb-5 row">
+						<P class="text-center fs-4 ">Billing Address</P>
+						<hr>
+						<div class="col p-1">
+							<label>First Name</label>
+							<input type="text" name="firstName" 
+							 class="form-control col">
 						</div>
-						<div class="mb-5 row">
-							<div class="col p-1">
-								<label>Email</label>
-								<input type="email" name="email" 
-								class="form-control col">
-							</div>
-							<div class="col p-1">
-								<label>Mobile Number</label>
-								<input type="text" name="mobileNo"
-								 class="form-control col ms-2">
-							 </div>
+						<div class="col p-1">
+							<label>Last Name</label>
+							<input type="text" name="lastName"
+							 class="form-control col ms-2">
+						 </div>
+					</div>
+					<div class="mb-5 row">
+						<div class="col p-1">
+							<label>Email</label>
+							<input type="email" name="email" 
+							class="form-control col">
 						</div>
-						<div class="mb-5 row">
-							<div class="col p-1">
-								<label>Address</label>
-								<input type="text" name="address" 
-								class="form-control col">
-							</div>
-							<div class="col p-1">
-								<label>City</label>
-								<input type="text" name="city"
-								  class="form-control col ms-2">
-							 </div>
+						<div class="col p-1">
+							<label>Mobile Number</label>
+							<input type="text" name="mobileNo"
+							 class="form-control col ms-2">
+						 </div>
+					</div>
+					<div class="mb-5 row">
+						<div class="col p-1">
+							<label>Address</label>
+							<input type="text" name="address" 
+							class="form-control col">
 						</div>
-						<div class="mb-5 row">
-							<div class="col p-1">
-								<label>State</label>
-								<input type="text" name="state" 
-								 class="form-control col">
-							</div>
-							<div class="col p-1">
-								<label>Pincode</label>
-								<input type="number" name="pincode"
-								 class="form-control col ms-2">
-							 </div>
-						</div>				
+						<div class="col p-1">
+							<label>City</label>
+							<input type="text" name="city"
+							  class="form-control col ms-2">
+						 </div>
+					</div>
+					<div class="mb-5 row">
+						<div class="col p-1">
+							<label>State</label>
+							<input type="text" name="state" 
+							 class="form-control col">
+						</div>
+						<div class="col p-1">
+							<label>Pincode</label>
+							<input type="number" name="pincode"
+							 class="form-control col ms-2">
+						 </div>
+					</div>				
 		        </div>
 		        <div class="col-md-6 ">
 					<P class="text-center fs-4 ">Payment Type</P>
@@ -95,24 +95,21 @@
 					</div>
 		            <div class="card shadow-lg p-3 mb-5 mt-2 bg-body-tertiary rounded">		        
 		                <div class="card-body">
-		       	            <!-- <form action="/login" method="post">-->
-		                        <div class="mb-3">
-		                            <label class="form-label">Select Payment Type</label>
-									<select name="paymentType" class="form-control">
-			                            <option class="text-center">---select---</option>
-										<option value="COD">Cash On Delivery</option>
-										<option value="ONLINE">Online Payment</option>
-									</select>
-		                        </div>		                 
-		                        <button class="btn bg-primary text-white col-md-12">Place Order</button>
-		                   <!-- </form>-->
+	                        <div class="mb-3">
+	                            <label class="form-label">Select Payment Type</label>
+								<select name="paymentType" class="form-control">
+		                            <option class="text-center">---select---</option>
+									<option value="COD">Cash On Delivery</option>
+									<option value="ONLINE">Online Payment</option>
+								</select>
+	                        </div>		                 
+	                        <button class="btn bg-primary text-white col-md-12">Place Order</button>
 		                </div>						
 		            </div>
 		        </div>
 		    </div>
 			</form>
 		</div>
-	</section>
-	
+	</section>	
 </body>
 </html>

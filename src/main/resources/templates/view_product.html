@@ -78,9 +78,22 @@
 								</a>
 							</th:block>
 							<th:block th:unless="${user==null}">
-								<a th:href="@{'/user/addCart?pid='+${product.id}+'&uid='+${user.id}}" class="btn btn-primary col-md-12 ">
-									Add To Cart
-								</a>
+
+							    <!-- Normal User -->
+							    <th:block th:if="${user.role=='ROLE_USER'}">
+							        <a th:href="@{'/user/addCart?pid='+${product.id}+'&uid='+${user.id}}"
+							           class="btn btn-primary col-md-12">
+							            Add To Cart
+							        </a>
+							    </th:block>
+
+							    <!-- Admin -->
+							    <th:block th:if="${user.role=='ROLE_ADMIN'}">
+							        <button class="btn btn-secondary col-md-12" disabled>
+							            Add To Cart
+							        </button>
+							    </th:block>
+
 							</th:block>
 						</th:block>
 						<th:block th:unless="${product.stock>0}">

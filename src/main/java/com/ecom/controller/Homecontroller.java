@@ -82,7 +82,7 @@ public class Homecontroller
 		List<Category> allActiveCategory=categoryService.getAllActiveCategory().stream()
 				.sorted((c1,c2)->c2.getId().compareTo(c1.getId())).limit(6).toList();
 		List<Product> allActiveProduct=productService.getAllActiveProduvts("").stream()
-				.sorted((p1,p2)->p2.getId().compareTo(p1.getId())).limit(8).toList();
+				.sorted((p1,p2)->p2.getId().compareTo(p1.getId())).limit(12).toList();
 		m.addAttribute("homecategory", allActiveCategory);
 		m.addAttribute("homeproducts", allActiveProduct);
 		return "index";
@@ -139,20 +139,28 @@ public class Homecontroller
 	
 	@PostMapping("/saveUser")
 	public String saveUser(@ModelAttribute UserDetail user,@RequestParam("img") MultipartFile file,HttpSession session ) throws IOException 
-	{
-		String imgName=file.isEmpty()?"default.png":file.getOriginalFilename();
-		user.setProfileImage(imgName);
-		UserDetail saveUser=userService.saveUser(user);
-		if(!ObjectUtils.isEmpty(saveUser)) 
+	{		
+		Boolean existsEmail=userService.existsEmail(user.getEmail());		
+		if(existsEmail) 
 		{
-			if(!file.isEmpty()) 
+			session.setAttribute("errorMsg", "Email already exists");
+		}
+		else
+		{
+			String imgName=file.isEmpty()?"default.png":file.getOriginalFilename();
+			user.setProfileImage(imgName);
+			UserDetail saveUser=userService.saveUser(user);
+			if(!ObjectUtils.isEmpty(saveUser)) 
 			{
-				saveImageToUploadDir(file, "Profile_img");
+				if(!file.isEmpty()) 
+				{
+					saveImageToUploadDir(file, "Profile_img");
+				}
+				session.setAttribute("succMsg", "Data save successfully");
+			}else
+			{
+				session.setAttribute("errorMsg", "Somthing wrong on server");
 			}
-			session.setAttribute("succMsg", "Data save successfully");
-		}else
-		{
-			session.setAttribute("errorMsg", "Somthing wrong on server");
 		}
 		return "redirect:/register";
 	}
